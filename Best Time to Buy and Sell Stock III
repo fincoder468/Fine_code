@@ -1,0 +1,25 @@
+// You are given an array prices where prices[i] is the price of a given stock on the ith day.
+
+Find the maximum profit you can achieve. You may complete at most two transactions.
+
+Note: You may not engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again).
+
+
+
+
+class Solution {
+public:
+    int func(int i,int k,vector<int>& a,vector<vector<int>>&dp){
+        if(k==0) return 0;
+        if(i==a.size()) return 0;
+        if(dp[i][k]!=-1) return dp[i][k];
+        if(k%2==0){
+            return dp[i][k]=max(func(i+1,k,a,dp),func(i+1,k-1,a,dp)-a[i]);
+        }
+        return dp[i][k]=max(func(i+1,k,a,dp),func(i+1,k-1,a,dp)+a[i]);
+    } 
+    int maxProfit(vector<int>& prices) {
+        vector<vector<int>>dp(prices.size()+4,vector<int>(6,-1));
+        return func(0,4,prices,dp);
+    }
+};
