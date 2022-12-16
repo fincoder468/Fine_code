@@ -1,0 +1,42 @@
+// You are given a string s consisting only of lowercase English letters.
+
+In one move, you can select any two adjacent characters of s and swap them.
+
+Return the minimum number of moves needed to make s a palindrome.
+
+Note that the input will be generated such that s can always be converted to a palindrome.
+
+
+class Solution {
+public:
+    int minMovesToMakePalindrome(string s) {
+        int start=0,end=s.size()-1;
+        int ct=0;
+        while(start<end){
+            if(s[start]==s[end]){
+                start++;
+                end--;
+            }
+            else{
+                int i=end;
+                while(i>start and s[start]!=s[i]){
+                i--;
+                }
+                if(i==start){
+                    ct++;
+                    swap(s[start],s[start+1]);
+                }
+                else{
+                    while(i<end){
+                        swap(s[i],s[i+1]);
+                        ct++;
+                        i++;
+                    }
+                    start++;
+                    end--;
+                }
+            }
+        }
+        return ct;
+    }
+};
