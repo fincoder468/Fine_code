@@ -1,0 +1,48 @@
+// Given an array of positive integers nums and a positive integer target, return the minimal length of a 
+subarray
+ whose sum is greater than or equal to target. If there is no such subarray, return 0 instead.
+
+
+
+class Solution {
+public:
+    int minSubArrayLen(int t, vector<int>& nums) {
+        int n=nums.size();
+        int hsh[n+2];
+        memset(hsh,0,sizeof(hsh));
+        hsh[0]=nums[0];
+        for(int i=1;i<n;i++){
+         hsh[i]=nums[i]+hsh[i-1];
+        }
+        int i=0,j=-1;
+       for(int k=0;k<n;k++){
+           if(hsh[k]>=t){
+               j=k;
+               break;
+           } 
+       }
+      
+       int mx=j+1;
+       if(j==-1) return 0;
+       if(j==n-1){
+           mx=n;
+       }
+       if(j==0) return 1;
+       
+       for(int i=1;i<n;i++){
+        if((hsh[j]-hsh[i-1])<t){
+            while(j<n and hsh[j]-hsh[i-1]<t){
+                j++;
+            }
+            if(j!=n){
+                mx=min(mx,j-i+1);
+            }
+            
+        }
+        else{
+         mx=min(mx,j-i+1);
+        }
+       }
+      return mx;
+    }
+};
