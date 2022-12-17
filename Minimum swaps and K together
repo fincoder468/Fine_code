@@ -1,0 +1,34 @@
+Given an array arr of n positive integers and a number k. One can apply a swap operation on the array any number of times, i.e choose any two index i and j (i < j) and swap arr[i] , arr[j] . Find the minimum number of swaps required to bring all the numbers less than or equal to k together, i.e. make them a contiguous subarray.
+
+
+class Solution
+{
+public:
+    int minSwap(int arr[], int n, int k) {
+    int ct=0;
+        for(int i=0;i<n;i++){
+            if(arr[i]<=k){
+              ct++;
+            }
+        }
+       int curr=0;
+       for(int i=0;i<ct;i++){
+            if(arr[i]<=k){
+              curr++;
+            }
+       }
+       int ans=ct-curr;
+       for(int i=ct;i<n;i++){
+           if(arr[i-ct]<=k){
+              curr--;
+            }
+            if(arr[i]<=k){
+              curr++;
+            }
+            ans=min(ans,ct-curr);
+       }
+        
+return ans;
+        
+    }
+};
