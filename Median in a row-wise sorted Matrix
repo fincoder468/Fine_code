@@ -1,0 +1,44 @@
+// Given a row wise sorted matrix of size R*C where R and C are always odd, find the median of the matrix.
+
+
+
+class Solution{   
+public:
+int func(vector<int>&ro,int mid){
+    int l=0,r=ro.size()-1;
+    while(l<=r){
+        int md=(l+r)/2;
+        if(ro[md]<=mid){
+            l=md+1;
+        }
+        else{
+            r=md-1;
+        }
+    }
+    return l;
+}
+    int median(vector<vector<int>> &m, int r, int c){
+        // vector<int>v;
+        // for(int i=0;i<r;i++){
+        //     for(int j=0;j<c;j++){
+        //         v.push_back(m[i][j]);
+        //     }
+        // }
+        // sort(v.begin(),v.end());
+        // return v[v.size()/2];
+        int st=0,end=1e9;
+        while(st<=end){
+            int mid=(st+end)/2;
+            int ct=0;
+            for(int i=0;i<r;i++){
+             ct+=func(m[i],mid);
+            }
+            if(ct<=(r*c)/2) st=mid+1;
+            else{
+                end=mid-1;
+            }
+        }
+        return st;
+  
+    }
+};
