@@ -1,0 +1,34 @@
+//Partitioning and Sorting Arrays with Many Repeated Entries
+
+
+
+#include <bits/stdc++.h> 
+int part(vector<int> &arr,int lb,int ub){
+    int pivot=arr[lb];
+    int start=lb,end=ub;
+    while(start<end){
+        while(arr[start]<=pivot){
+            start++;
+        }
+        while(arr[end]>pivot){
+            end--;
+        }
+        if(start<end){
+            swap(arr[start],arr[end]);
+        } 
+    }
+    swap(arr[lb],arr[end]);
+    return end;
+}
+void quicksort(vector<int> &arr,int lb,int ub){
+    if(lb<ub){
+        int loc=part(arr,lb,ub);
+        quicksort(arr,lb,loc-1);
+        quicksort(arr,loc+1,ub);
+    }
+}
+vector<int> sortArray(vector<int> &arr)
+{
+quicksort(arr,0,arr.size()-1);
+    return arr;
+}
