@@ -1,0 +1,20 @@
+// You are given a number N. Find the total count of set bits for all numbers from 1 to N(both inclusive).
+
+
+
+class Solution{
+    public:
+    // n: input to count the number of set bits
+    //Function to return sum of count of set bits in the integers from 1 to n.
+    int countSetBits(int n)
+    {
+         if(n==0) return 0;
+        if(n==1) return 1;
+        int ct=0;
+        while((1<<ct)<=n){
+            ct++;
+        }
+        ct--;
+        return (ct*(1<<(ct-1)))+1+n-(1<<ct)+countSetBits(n-(1<<ct));
+    }
+};
